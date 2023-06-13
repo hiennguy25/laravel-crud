@@ -1,2 +1,2 @@
 <h1>Welcome to Laravel Framework!</h1>
-<a href="/home">Click me</a>
+<a href={{ route('home') }}>Click me</a>
