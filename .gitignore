@@ -13,3 +13,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+#resource Bootstrap of Admin Dashboard
+public/dist
+public/plugins

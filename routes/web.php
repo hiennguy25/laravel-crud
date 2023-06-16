@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +16,11 @@ use App\Http\Controllers\HomeController;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('home');
 });
 
 // Route::get('/home', function () {
@@ -23,3 +28,11 @@ Route::get('/', function () {
 // })->name('home');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::get('/login', [AuthController::class, 'viewLogin'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/register', [AuthController::class, 'viewRegister'])->name('register');
+Route::post('/register', [AuthController::class, 'register']);
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
