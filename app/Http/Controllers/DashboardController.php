@@ -11,4 +11,9 @@ class DashboardController extends Controller
         $message = session()->get('message');
         return view('admin.dashboard', ['message' => $message]);
     }
+
+    public function viewHome()
+    {
+        return view('admin.dashboardIndex');
+    }
 }

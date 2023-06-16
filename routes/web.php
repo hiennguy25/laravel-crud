@@ -36,3 +36,5 @@ Route::get('/register', [AuthController::class, 'viewRegister'])->name('register
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard/index', [DashboardController::class, 'viewHome'])->name('viewHome');
