@@ -1,4 +1,4 @@
-@extends('admin.dashboard')
+@extends('admin.dashboardLayout')
 @section('content')
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
