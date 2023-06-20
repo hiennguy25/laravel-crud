@@ -31,10 +31,10 @@
             <td>{{$category->id}}</td>
             <td>{{$category->name}}</td>
             <td>{{$category->description}}</td>
-            <td>{{$category->active}}</td>
+            <td>{{$category->active == 1 ? 'Active' : ''}}</td>
             <td>{{$category->created_at}}</td>
-            <td><a class="btn btn-primary"  href="{{route('category.edit', ['id'=>$category->id])}}">Update</a></td>
-            <td><a class="btn btn-danger" onclick="return confirm('Do you want to delete this?')" href="{{route('category.delete', ['id'=>$category->id])}}">Delete</a></td>
+            <td><a class="btn btn-primary"  href="{{route('category.edit', ['id'=>$category->id])}}"><i class="fas fa-edit"></i></a></td>
+            <td><a class="btn btn-danger" onclick="return confirm('Do you want to delete this?')" href="{{route('category.delete', ['id'=>$category->id])}}"><i class="fas fa-trash-alt"></i></a></td>
           </tr>
           @endforeach
         </tbody>
@@ -74,7 +74,12 @@
       @default
     @endswitch
    </div>
-    
   </div>
+  {{-- Add sweet alert version 5.x --}}
+  @if ($msg) 
+    <script>
+        swal("Good job!", "You clicked the button!", "success");
+    </script>
+  @endif
   </div>
   @endsection
