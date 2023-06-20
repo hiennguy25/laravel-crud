@@ -3,13 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Repositories\Category\CategoryInterface;
+
 
 class CategoryController extends Controller
 {
+    protected $categoryRepository;
+    public function __construct(CategoryInterface $categoryRepository)
+    {
+        $this->categoryRepository = $categoryRepository;
+    }
+
     public function index()
     {
-        $categories = Category::all();
+        // $categories = Category::all();
+        $categories = $this->categoryRepository->getAll();
+        // dd($categories);
         return view('admin.category.list', [
             'categories'=> $categories,
             'msg'=> session()->get('msg')
@@ -27,7 +36,7 @@ class CategoryController extends Controller
             'description'=>$request->description,
             'active'=>1
         ];
-        if (Category::create($data)) {
+        if ($this->categoryRepository->create($data)) {
             return view('admin.category.create', ['message'=>'Created a new category']);
         }
         return view('admin.category.create', ['message'=>'Please enter enough information of category']);
@@ -35,7 +44,7 @@ class CategoryController extends Controller
 
     public function delete($id) 
     {
-        $category = Category::find($id);
+        $category = $this->categoryRepository->getById($id);
         // dd($category);
         if ($category) {
             $category->delete();
@@ -47,7 +56,7 @@ class CategoryController extends Controller
 
     public function viewEdit($id) 
     {
-        $category = Category::find($id);
+        $category = $this->categoryRepository->getById($id);
         if ($category) {
             return view('admin.category.edit', ['category' => $category,
             'msg'=>session()->get('msg')]);
@@ -57,7 +66,7 @@ class CategoryController extends Controller
 
     public function update($id, Request $request) 
     {
-        $category = Category::find($id);
+        $category = $this->categoryRepository->getById($id);
         if (!$category) {
             return redirect()->route('category.list')->with('msg', 'Not found a category!');    
         }
@@ -68,7 +77,7 @@ class CategoryController extends Controller
             'name'=> $request->name,
             'description'=> $request->description
         ];
-        Category::where('id',$id)->update($data); 
+        $category = $this->categoryRepository->update($id, $data); 
         return redirect()->route('category.list')->with('msg', 'Updated!');
         // return redirect()->route('category.edit', ['id'=> $id])->with('msg', 'Updated!');
     }
